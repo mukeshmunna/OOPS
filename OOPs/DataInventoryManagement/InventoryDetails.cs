@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOPs
+namespace OOPs.DataInventoryManagement
 {
     public class InventoryDetails
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
         public int Weight { get; set; }
         public int PricePerKg { get; set; }
 
