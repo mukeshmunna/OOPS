@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DataInventoryManagement\" />
+    <Folder Include="Stocks\" />
   </ItemGroup>
 
 </Project>

@@ -2,10 +2,12 @@
 using OOPs.DataInventoryManagement;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace OOPs.InventoryManagement
 {
@@ -23,41 +25,158 @@ namespace OOPs.InventoryManagement
             Console.WriteLine("PulsesList");
             DisplayList(list.Pulseslist);
         }
-        public void AddInventoryManagement(string objectName)
+        public void EditValue(string objectName, string inventoryName)
         {
+            InventoryDetails details = new InventoryDetails();
             if (objectName.ToLower().Equals("rice"))
             {
-                Console.WriteLine("Enter Name ,weight and price per Kg");
-                InventoryDetails data = new InventoryDetails()
+                foreach (var data in list.RiceList)
                 {
-                    Name = Console.ReadLine(),
-                    Weight = Convert.ToInt32(Console.ReadLine()),
-                    PricePerKg = Convert.ToInt32(Console.ReadLine()),
-                };
+                    if (data.Name.Equals(inventoryName))
+                        details = data;
+                }
+                if (details != null)
+                {
+                    Console.WriteLine("what do you want to edit 1.Name 2.Weight 3.Price Per Kg");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("Enter Name");
+                            details.Name = Console.ReadLine();
+                            break;
+                        case 2:
+                            Console.WriteLine("Enter Weight");
+                            details.Weight = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        case 3:
+                            Console.WriteLine("Enter Price per kg");
+                            details.PricePerKg = Convert.ToInt32(Console.ReadLine());
+                            break;
+                    }
+
+                }
+            }
+            if (objectName.ToLower().Equals("wheat"))
+            {
+                foreach (var data in list.WheatList)
+                {
+                    if (data.Name.Equals(inventoryName))
+                        details = data;
+                }
+                if (details != null)
+                {
+                    Console.WriteLine("what do you want to edit 1.Name 2.Weight 3.Price Per Kg");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("Enter Name");
+                            details.Name = Console.ReadLine();
+                            break;
+                        case 2:
+                            Console.WriteLine("Enter Weight");
+                            details.Weight = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        case 3:
+                            Console.WriteLine("Enter Price per kg");
+                            details.PricePerKg = Convert.ToInt32(Console.ReadLine());
+                            break;
+                    }
+
+                }
+            }
+            if (objectName.ToLower().Equals("pulses"))
+            {
+                foreach (var data in list.Pulseslist)
+                {
+                    if (data.Name.Equals(inventoryName))
+                        details = data;
+                }
+                if (details != null)
+                {
+                    Console.WriteLine("what do you want to edit 1.Name 2.Weight 3.Price Per Kg");
+                    int choice = Convert.ToInt32(Console.ReadLine());
+                    switch (choice)
+                    {
+                        case 1:
+                            Console.WriteLine("Enter Name");
+                            details.Name = Console.ReadLine();
+                            break;
+                        case 2:
+                            Console.WriteLine("Enter Weight");
+                            details.Weight = Convert.ToInt32(Console.ReadLine());
+                            break;
+                        case 3:
+                            Console.WriteLine("Enter Price per kg");
+                            details.PricePerKg = Convert.ToInt32(Console.ReadLine());
+                            break;
+                    }
+
+                }
+            }
+        }
+
+        public void DeleteValue(string objectName, string inventoryName)
+        {
+            InventoryDetails details = new InventoryDetails();
+            if (objectName.ToLower().Equals("rice"))
+            {
+                foreach (var data in list.RiceList)
+                {
+                    if (data.Name.Equals(inventoryName))
+                        details = data;
+                }
+                if (details != null)
+                {
+                    list.RiceList.Remove(details);
+                }
+            }
+            if (objectName.ToLower().Equals("wheat"))
+            {
+                foreach (var data in list.WheatList)
+                {
+                    if (data.Name.Equals(inventoryName))
+                        details = data;
+                }
+                if (details != null)
+                {
+                    list.WheatList.Remove(details);
+                }
+            }
+            if (objectName.ToLower().Equals("pulsus"))
+            {
+                foreach (var data in list.Pulseslist)
+                {
+                    if (data.Name.Equals(inventoryName))
+                        details = data;
+                }
+                if (details != null)
+                {
+                    list.Pulseslist.Remove(details);
+                }
+            }
+        }
+        public void AddInventoryManagement(string objectName)
+        {
+            Console.WriteLine("Enter Name ,weight and price per Kg");
+            InventoryDetails data = new InventoryDetails()
+            {
+                Name = Console.ReadLine(),
+                Weight = Convert.ToInt32(Console.ReadLine()),
+                PricePerKg = Convert.ToInt32(Console.ReadLine()),
+            };
+            if (objectName.ToLower().Equals("rice"))
+            {
                 list.RiceList.Add(data);
             }
             if (objectName.ToLower().Equals("wheat"))
             {
-                Console.WriteLine("Enter Name,weight and price per Kg");
-                InventoryDetails inventoryDetails = new InventoryDetails()
-                {
-                    Name = Console.ReadLine(),
-                    Weight = Convert.ToInt32(Console.ReadLine()),
-                    PricePerKg = Convert.ToInt32(Console.ReadLine()),
-                };
-                list.WheatList.Add(inventoryDetails);
-
+                list.WheatList.Add(data);
             }
-            if (objectName.ToLower().Equals("pulse"))
+            if (objectName.ToLower().Equals("pulsus"))
             {
-                Console.WriteLine("Enter Name,weight and price per Kg");
-                InventoryDetails inventoryDetails = new InventoryDetails()
-                {
-                    Name = Console.ReadLine(),
-                    Weight = Convert.ToInt32(Console.ReadLine()),
-                    PricePerKg = Convert.ToInt32(Console.ReadLine()),
-                };
-                list.Pulseslist.Add(inventoryDetails);
+                list.Pulseslist.Add(data);
             }
         }
         public void AddToJsonFile(string filePath)
@@ -65,8 +184,6 @@ namespace OOPs.InventoryManagement
             var json = JsonConvert.SerializeObject(list);
             File.WriteAllText(filePath, json);
         }
-
-
         public void DisplayList(List<InventoryDetails> list)
         {
             foreach (var data in list)
