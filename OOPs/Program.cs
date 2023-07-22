@@ -1,53 +1,23 @@
-﻿using OOPs.DataInventoryManagement;
-using OOPs.InventoryManagement;
-using System;
+﻿
+using OOps.StockAccountManagement;
+using OOPs.DataInventoryManagement;
+using System.Collections.Generic;
+using System.Security.AccessControl;
 
-namespace OOPs
+internal class Program
+
 {
-    class Program
+    static string invertory_filePath = @"D:\Problem statemets\OOPs\OOPs\OOPs\StockAccountManagement\CompanyStock.json";
+    private static void Main(string[] args)
     {
-        
-        static string filePath = @"D:\Problem statemets\OOPs\OOPs\OOPs\InventoryManagement\InventoryManagementData.json";
-        public static void Main(String[] args)
-        {
 
-            { 
- 
-                        bool flag = true;
-                        InventoryManagementOperation inventoryManagementOperation = new InventoryManagementOperation();
-                        while (flag)
-                        {
-                            Console.WriteLine("1.read files\n2.add values\n3.delete Value\n4.update to json");
-                            int choice = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Welcome to Stock Account Management -->");
+        StockOperation details = new StockOperation();
+        details.ReadStockJson(invertory_filePath);
 
-                            switch (choice)
-                            {
-                                case 1:
-                                    inventoryManagementOperation.ReadInventoryJson(filePath);
-                                    break;
-                                case 2:
-                                    Console.WriteLine("Enter the crop name ");
-                                    string cropName = Console.ReadLine();
-                                    inventoryManagementOperation.AddInventoryManagement(cropName);
-                                    break;
-                                case 3:
-                                    Console.WriteLine("Enter the crop name ");
-                                    cropName = Console.ReadLine();
-                                    Console.WriteLine("Enter the crop name ");
-                                    string inventoryName = Console.ReadLine();
-                                    inventoryManagementOperation.DeleteValue(cropName, inventoryName);
-                                    break;
-                                case 4:
-                                    inventoryManagementOperation.AddToJsonFile(filePath);
-                                    break;
-                                default:
-                                    flag = false;
-                                    break;
 
-                            }
-                        }
-
-                }
-            }
-        }
     }
+}
+
+
+
